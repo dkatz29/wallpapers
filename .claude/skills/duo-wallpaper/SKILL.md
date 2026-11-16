@@ -1,6 +1,6 @@
 ---
 name: duo-wallpaper
-description: Design and publish the day's abstract light + dark wallpaper pair for the iPhone Duo inner display (1878x2670), then commit and push so the iOS Shortcut can pick it up at sunrise/sunset. Use when asked to generate, regenerate, or publish the daily Duo wallpaper, or when the midnight routine runs.
+description: Design and publish the day's abstract light + dark wallpaper pair for the iPhone Duo inner display (a 2670x2670 square that fills the 1878x2670 screen in portrait and landscape), then commit and push so the iOS Shortcut can pick it up at sunrise/sunset. Use when asked to generate, regenerate, or publish the daily Duo wallpaper, or when the midnight routine runs.
 ---
 
 # Daily iPhone Duo wallpaper
@@ -30,15 +30,24 @@ spec, it draws the light and dark versions with identical geometry, writes them 
 
   Neutral backgrounds (`linen`, `fog`, `ink`, `graphite`) don't count toward the
   family mix. Record the chosen families in the spec as `"families": [...]`.
-- **Inner display only:** 1878 × 2670. The outer display lines up with it, so don't
-  make a separate outer image.
+- **One square image, 2670 × 2670, that works in portrait and landscape.** The inner
+  display is 1878 × 2670 and rotates. Portrait shows the middle 1878 columns of the
+  square and landscape shows the middle 1878 rows, so only the central
+  1878 × 1878 area (about 0.15–0.85 on both axes) is always visible. Put the focal
+  shapes there; the outer 15% on each side is fill that only one orientation sees.
+  The outer display lines up with the portrait view, so don't make a separate image.
+- **Coordinates:** positions (`cx`, `cy`, `top`, `horizon`, …) are fractions of the
+  square canvas (0–1). Sizes (`r_*`, `length`, `width`, `thickness`, `sun_r`) are
+  in *screen widths*, i.e. multiples of 1878 px.
 - **Light version** (sunrise to sunset): background from `light` (optionally `mid`)
   tones, layers mostly `light`/`mid`, with one or two richer `mid` accents.
 - **Dark version** (sunset to sunrise): background from `dark` tones only; layers
   mostly `dark` with at most one or two muted `mid` accents. Keep it low-glare. It
   should feel like the same wallpaper at night, not a different one.
-- Keep the top ~15% fairly quiet (lock-screen clock) and avoid high-contrast detail
-  straight down the vertical centre line (the fold).
+- Keep the top ~30% of the canvas fairly quiet. The lock-screen clock sits at the
+  top of each view, and the landscape view starts at y ≈ 0.15. Avoid high-contrast
+  detail straight along the centre lines (x = 0.5 and y = 0.5), where the fold falls
+  in one orientation or the other.
 
 ## Steps
 
@@ -102,24 +111,26 @@ spec, it draws the light and dark versions with identical geometry, writes them 
      - `petals`: `mode` (`flower|fan`), `count` (5–12), `length` (0.5–0.9 widths),
        `width` (0.12–0.3), `tip` (`pointed|round`), `cx`, `cy`, `spread` (fan degrees).
        Looks lovely with `opacity` 0.85–0.92 so overlaps blend.
-     - `bauhaus`: `cols` (3–5), `top` (where the grid starts, keep ≥ 0.25),
+     - `bauhaus`: `cols` (3–5), `top` (where the grid starts, keep ≥ 0.3),
        `mix` (weights, e.g. `{"quarter": 3, "half": 2, "circle": 1, "none": 1}`).
        Tiles cycle through the layer colours, so 4–6 layers works best.
      - `squircles`: `exponent` (4–6; higher is squarer), `rotation` (deg), `cx`, `cy`,
        `r_max`, `r_min` (half-size in widths)
      - `folds`: `tilt` (-0.2–0.2), `top`, `bottom`
-     - `horizon`: `horizon` (0.45–0.7), `sun_r` (0.12–0.35 widths), `sun_x`,
+     - `horizon`: `horizon` (0.48–0.65), `sun_r` (0.12–0.35 widths), `sun_x`,
        `sun_rise` (0 = sitting on the horizon, 1 = fully risen), `curve` (0–0.06).
        Layer 0 is the sun, so pick a colour that stands out from the bands.
      - `ribbons`: `width` (0.15–0.32 widths), `amplitude` (0.04–0.2), `frequency`
-       (0.3–1.2), `angle` (deg), `top` (where the rounded heads start; use ≥ 0.2 to
+       (0.3–1.2), `angle` (deg), `top` (where the rounded heads start; use ≥ 0.3 to
        keep the clock area clear, or -0.2 for full-height ribbons)
      - `blobs`: `wobble` (0.08–0.25), `r_min`, `r_max`
      - `topo`: `wobble` (0.08–0.22), `cx`, `cy`, `r_max`, `r_min`. 5–8 layers;
        alternating close tones reads best.
 5. Render: `python generator/render.py specs/<date>.json`. This writes
    `latest/light.png`, `latest/dark.png`, `latest/preview.png`, `latest/manifest.json`.
-6. **Look at `latest/preview.png`** (Read it). Critique it honestly: balance, too
+6. **Look at `latest/preview.png`** (Read it). Each row (light, then dark) shows the
+   portrait view on the left and the landscape view on the right; both must work.
+   Critique it honestly: balance in each view, focal shapes cut off in one view, too
    busy or too empty, muddy contrast, clashing tan/blue values, shapes crowding the
    clock area or the fold, dark version too bright. If it isn't something you'd be
    happy to see on your phone all day, change the seed, colours or params and
