@@ -14,8 +14,8 @@ outer display lines up with it. Only blues, teals, tans, khakis and greys.
                               ├─ python generator/render.py ──► latest/light.png, latest/dark.png
                               ├─ reviews latest/preview.png, iterates if it's not good
                               └─ git commit + push
- Sunrise   iOS automation ──► "Duo Wallpaper" shortcut (light) ──► downloads latest/light.png ──► sets wallpaper
- Sunset    iOS automation ──► "Duo Wallpaper" shortcut (dark)  ──► downloads latest/dark.png  ──► sets wallpaper
+ Sunrise   iOS automation ──► downloads latest/light.png ──► Set Wallpaper Photo
+ Sunset    iOS automation ──► downloads latest/dark.png  ──► Set Wallpaper Photo
 ```
 
 GitHub is the hand-off between Claude and the phone. The image URLs never change:
@@ -39,42 +39,22 @@ Only the specs are archived. Past images can be rebuilt exactly with
 **Before you start:** set any **photo** wallpaper once by hand (Settings → Wallpaper).
 The *Set Wallpaper Photo* action updates the current photo wallpaper.
 
-### 1. The shortcut, "Duo Wallpaper"
+### Two automations, no separate shortcut
 
-Shortcut **ⓘ / Details** → turn on **Receive Text input**, and set *If there's no input*
-to **Continue**. The URLs are fixed in the shortcut, not built from what you type
-(typed text can be blank, auto-capitalised or carry a hidden line break, and each of
-those gives a 404). With no input it defaults to light.
+The sunrise/sunset trigger already decides light vs dark, so each automation
+downloads its own fixed URL. There's no shortcut input to go blank.
 
-| # | Action | Settings |
+Shortcuts → **Automation** → **+** → **Time of Day** → choose the trigger, **Daily**,
+**Run Immediately**, *Notify When Run* off → **New Blank Automation**:
+
+| Trigger | Action 1: Get Contents of URL | Action 2: Set Wallpaper Photo |
 |---|---|---|
-| 1 | **Change Case** | *Shortcut Input* → **lowercase** |
-| 2 | **If** | *Updated Text* **contains** `dark` |
-| 3 | &nbsp;&nbsp;**Text** | `https://raw.githubusercontent.com/dkatz29/wallpapers/main/latest/dark.png` |
-| 4 | **Otherwise** | |
-| 5 | &nbsp;&nbsp;**Text** | `https://raw.githubusercontent.com/dkatz29/wallpapers/main/latest/light.png` |
-| 6 | **End If** | |
-| 7 | **Get Contents of URL** | URL: **If Result** |
-| 8 | **Get Details of Images** | **Width** of *Contents of URL* |
-| 9 | **If** | *Width* **is** `1878` |
-| 10 | &nbsp;&nbsp;**Set Wallpaper Photo** | *Contents of URL* · Lock Screen and Home Screen · *Show Preview* off · *Crop to Subject* off |
-| 11 | **Otherwise** | |
-| 12 | &nbsp;&nbsp;**Show Notification** | `Duo wallpaper download failed` |
-| 13 | **End If** | |
+| **Sunrise** | `https://raw.githubusercontent.com/dkatz29/wallpapers/main/latest/light.png` | *Contents of URL* · Lock Screen and Home Screen · *Show Preview* off · *Crop to Subject* off |
+| **Sunset** | `https://raw.githubusercontent.com/dkatz29/wallpapers/main/latest/dark.png` | same |
 
-The width check in step 9 stops an error page from ever becoming the wallpaper.
-Test by running it with no input; you should get the light version.
-
-### 2. The automations
-
-Shortcuts → **Automation** → **+** → **Time of Day**:
-
-| Automation | Trigger | Actions |
-|---|---|---|
-| Wallpaper: light | **Sunrise** · Daily | **Run Shortcut** *Duo Wallpaper* (no input, so it uses light) |
-| Wallpaper: dark | **Sunset** · Daily | **Text** `dark` → **Run Shortcut** *Duo Wallpaper* (Input: *Text*) |
-
-For both, choose **Run Immediately** and turn off **Notify When Run**.
+Test with ▶ inside the automation. If the wallpaper doesn't change, temporarily add
+**Quick Look** between the two actions to see what was downloaded, and make sure the
+current wallpaper is a *photo* wallpaper.
 
 The midnight job replaces `latest/` around 00:00 CT. Sunset always uses the dark
 version of that day's design, and the next sunrise picks up the new one.
