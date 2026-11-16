@@ -1,15 +1,22 @@
 {
   "date": "2026-11-16",
-  "title": "Desert Doorway",
-  "seed": 73519,
-  "style": "arches",
-  "families": ["tan", "khaki", "teal"],
+  "title": "Harbor Fan",
+  "seed": 71542,
+  "style": "petals",
+  "families": ["blue", "grey"],
   "params": {
-    "mode": "nested",
-    "cx": 0.57,
-    "gradient_angle": 100
+    "mode": "fan",
+    "count": 7,
+    "length": 0.88,
+    "width": 0.22,
+    "tip": "round",
+    "cx": 0.6,
+    "cy": 1.02,
+    "spread": 150,
+    "opacity": 0.9,
+    "gradient_angle": 120
   },
-  "light": { "background": ["linen", "parchment"], "layers": ["sand", "khaki", "seafoam", "lagoon", "dune"] },
-  "dark":  { "background": ["ink", "umber"], "layers": ["umber", "olive_khaki", "harbor", "deep_teal", "teal"] },
-  "notes": "A mid-century nested doorway in sun-baked tans and khaki, opening onto a cool teal core."
+  "light": { "background": ["fog", "ice"], "layers": ["cloud", "mist", "stone", "sky", "cornflower", "slate", "ocean"] },
+  "dark":  { "background": ["ink", "midnight"], "layers": ["graphite", "navy", "slate", "ocean", "navy", "slate", "ocean"] },
+  "notes": "A cool blue-and-grey fan of rounded petals rising from the lower right, leaving the clock side open."
 }
