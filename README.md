@@ -9,7 +9,7 @@ outer display lines up with it. Only blues, teals, tans, khakis and greys.
 ## How it works
 
 ```
- 00:00 CT  Claude routine ──► runs the duo-wallpaper skill
+ 00:00 CT  Mac launchd job ──► claude -p runs the duo-wallpaper skill
                               ├─ designs specs/<date>.json (style, colours, seed)
                               ├─ python generator/render.py ──► latest/light.png, latest/dark.png
                               ├─ reviews latest/preview.png, iterates if it's not good
@@ -59,15 +59,28 @@ current wallpaper is a *photo* wallpaper.
 The midnight job replaces `latest/` around 00:00 CT. Sunset always uses the dark
 version of that day's design, and the next sunrise picks up the new one.
 
-## The midnight Claude routine
+## The midnight job (macOS launchd)
 
-A scheduled Claude Code routine runs daily at 00:00 America/Chicago against this
-repo with this prompt:
+`scripts/nightly.sh` runs at 00:00 local time from a launchd agent
+(`~/Library/LaunchAgents/com.duo-wallpaper.nightly.plist`). If the Mac is asleep
+at midnight, launchd runs it on the next wake. It:
 
-> Use the duo-wallpaper skill to design, render, review and push today's wallpaper.
+1. pulls `main`; exits if `specs/<today>.json` already exists
+2. runs `claude -p` headless with the duo-wallpaper skill. Claude may only use
+   file tools and `python generator/render.py`, and must not run git
+3. checks the output (date matches, both PNGs 1878 × 2670), then commits and pushes
 
-To run it by hand from a clone: open Claude Code in the repo and say
-*"generate today's Duo wallpaper"*.
+The job uses its own clone in `~/Library/Application Support/duo-wallpaper/wallpapers`
+because macOS blocks background jobs from `~/Documents`. Log:
+`~/Library/Logs/duo-wallpaper.log`.
+
+```bash
+launchctl kickstart gui/$(id -u)/com.duo-wallpaper.nightly    # run now
+DRY_RUN=1 WALLPAPER_DATE=2026-12-01 scripts/nightly.sh        # test without publishing
+```
+
+For unattended runs, store a long-lived Claude token (from `claude setup-token`) in
+the Keychain as `duo-wallpaper-claude-token`; the script picks it up automatically.
 
 ## Local use
 
