@@ -5,7 +5,7 @@
   "style": "horizon",
   "families": ["blue", "grey"],
   "params": {
-    "horizon": 0.58,
+    "horizon": 0.5,
     "sun_r": 0.22,
     "sun_x": 0.62,
     "sun_rise": 0.55,

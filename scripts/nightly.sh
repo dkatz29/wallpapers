@@ -120,7 +120,7 @@ man = json.load(open("latest/manifest.json"))
 assert man["date"] == spec["date"], f"latest/ is for {man['date']}, not {spec['date']}"
 for m in ("light", "dark"):
     size = Image.open(f"latest/{m}.png").size
-    assert size == (2670, 2670), f"{m}.png is {size}"
+    assert size == (1878, 2670), f"{m}.png is {size}"
 print(f"verified: {spec['title']} ({spec['style']})")
 EOF
 TITLE=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['title'])" "$SPEC")

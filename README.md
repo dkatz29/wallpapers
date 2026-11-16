@@ -1,10 +1,10 @@
 # iPhone Duo daily wallpapers
 
 A new flat, abstract wallpaper every day, in a **light** version for daytime and a
-**dark** version for night. Each is a 2670 × 2670 square so it fills the iPhone Duo
-inner display (1878 × 2670) in portrait *and* landscape without iOS zooming in:
-portrait shows the middle 1878 columns, landscape the middle 1878 rows. The outer
-display lines up with the portrait view. Only blues, teals, tans, khakis and greys.
+**dark** version for night. Sized for the iPhone Duo inner display (1878 × 2670); the
+outer display shows nearly the same view. In landscape, iOS shows only the upper
+band of the image (about 8%–57% of its height), so every design is composed to work
+both full-height and within that band. Only blues, teals, tans, khakis and greys.
 
 ![Today's wallpaper](latest/preview.png)
 
@@ -70,7 +70,7 @@ at midnight, launchd runs it on the next wake; it also runs at login (covering a
 1. resets its clone to `main` on GitHub (clearing anything a failed run left); exits if `specs/<today>.json` already exists
 2. runs `claude -p` headless with the duo-wallpaper skill. Claude may only use
    file tools and `python generator/render.py`, and must not run git
-3. checks the output (date matches, both PNGs 2670 × 2670), then commits and pushes
+3. checks the output (date matches, both PNGs 1878 × 2670), then commits and pushes
 
 The job uses its own clone in `~/Library/Application Support/duo-wallpaper/wallpapers`
 because macOS blocks background jobs from `~/Documents`. Log:
