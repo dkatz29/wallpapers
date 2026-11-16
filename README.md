@@ -3,8 +3,9 @@
 A new flat, abstract wallpaper every day, in a **light** version for daytime and a
 **dark** version for night. Sized for the iPhone Duo inner display (1878 × 2670); the
 outer display shows nearly the same view. In landscape, iOS shows only the upper
-band of the image (about 8%–57% of its height), so every design is composed to work
-both full-height and within that band. Only blues, teals, tans, khakis and greys.
+band of the image (about 8%–57% of its height) and a Shortcut can't change that, so
+each design is composed as a complete landscape picture inside that band, and
+continues below it for portrait. 28 styles rotate day to day. Only blues, teals, tans, khakis and greys.
 
 ![Today's wallpaper](latest/preview.png)
 
