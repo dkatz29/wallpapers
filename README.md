@@ -41,33 +41,38 @@ The *Set Wallpaper Photo* action updates the current photo wallpaper.
 
 ### 1. The shortcut, "Duo Wallpaper"
 
-Shortcuts app → **+** → name it `Duo Wallpaper`. Open its settings (ⓘ) → turn on
-**Use as Quick Action / Receive input**, input type **Text**, and choose
-*If there's no input:* **Ask For → Text** so you can also run it by hand.
+Shortcut **ⓘ / Details** → turn on **Receive Text input**, and set *If there's no input*
+to **Continue**. The URLs are fixed in the shortcut, not built from what you type
+(typed text can be blank, auto-capitalised or carry a hidden line break, and each of
+those gives a 404). With no input it defaults to light.
 
-Add these actions:
+| # | Action | Settings |
+|---|---|---|
+| 1 | **Change Case** | *Shortcut Input* → **lowercase** |
+| 2 | **If** | *Updated Text* **contains** `dark` |
+| 3 | &nbsp;&nbsp;**Text** | `https://raw.githubusercontent.com/dkatz29/wallpapers/main/latest/dark.png` |
+| 4 | **Otherwise** | |
+| 5 | &nbsp;&nbsp;**Text** | `https://raw.githubusercontent.com/dkatz29/wallpapers/main/latest/light.png` |
+| 6 | **End If** | |
+| 7 | **Get Contents of URL** | URL: **If Result** |
+| 8 | **Get Details of Images** | **Width** of *Contents of URL* |
+| 9 | **If** | *Width* **is** `1878` |
+| 10 | &nbsp;&nbsp;**Set Wallpaper Photo** | *Contents of URL* · Lock Screen and Home Screen · *Show Preview* off · *Crop to Subject* off |
+| 11 | **Otherwise** | |
+| 12 | &nbsp;&nbsp;**Show Notification** | `Duo wallpaper download failed` |
+| 13 | **End If** | |
 
-1. **Text** → `https://raw.githubusercontent.com/dkatz29/wallpapers/main/latest/`
-   then insert the **Shortcut Input** variable, then type `.png?t=`, then insert
-   **Current Date** (tap it → Date Format: *Custom* → `yyyyMMddHHmm`).
-   The `?t=…` part makes sure GitHub never serves a stale cached copy.
-2. **Get Contents of URL** → URL: the *Text* from step 1. (Method GET, no headers;
-   the repo is public.)
-3. **Set Wallpaper Photo** → Photo: *Contents of URL*.
-   - Wallpaper: **Lock Screen and Home Screen**
-   - Expand the action and turn **off** *Show Preview* and *Crop to Subject*
-     (otherwise it stops and asks you to confirm).
-
-To test it, run the shortcut and type `light` or `dark`.
+The width check in step 9 stops an error page from ever becoming the wallpaper.
+Test by running it with no input; you should get the light version.
 
 ### 2. The automations
 
 Shortcuts → **Automation** → **+** → **Time of Day**:
 
-| Automation | Trigger | Action |
+| Automation | Trigger | Actions |
 |---|---|---|
-| Wallpaper: light | **Sunrise** (offset 0) · Daily | **Text** `light` → **Run Shortcut** *Duo Wallpaper* (Input: *Text*) |
-| Wallpaper: dark | **Sunset** (offset 0) · Daily | **Text** `dark` → **Run Shortcut** *Duo Wallpaper* (Input: *Text*) |
+| Wallpaper: light | **Sunrise** · Daily | **Run Shortcut** *Duo Wallpaper* (no input, so it uses light) |
+| Wallpaper: dark | **Sunset** · Daily | **Text** `dark` → **Run Shortcut** *Duo Wallpaper* (Input: *Text*) |
 
 For both, choose **Run Immediately** and turn off **Notify When Run**.
 
