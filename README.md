@@ -63,7 +63,7 @@ version of that day's design, and the next sunrise picks up the new one.
 
 `scripts/nightly.sh` runs at 00:00 local time from a launchd agent
 (`~/Library/LaunchAgents/com.duo-wallpaper.nightly.plist`). If the Mac is asleep
-at midnight, launchd runs it on the next wake. It:
+at midnight, launchd runs it on the next wake; it also runs at login (covering a Mac that was shut down) and waits up to 2 minutes for the network. It:
 
 1. resets its clone to `main` on GitHub (clearing anything a failed run left); exits if `specs/<today>.json` already exists
 2. runs `claude -p` headless with the duo-wallpaper skill. Claude may only use

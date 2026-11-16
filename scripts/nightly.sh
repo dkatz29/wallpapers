@@ -25,9 +25,15 @@ log() { echo "[$(date '+%F %T')] $*"; }
 log "=== Duo wallpaper for $DATE (dry run: $DRY_RUN) ==="
 
 if [ "$DRY_RUN" != 1 ]; then
+  # After wake, launchd starts us before Wi-Fi is back. Wait up to ~2 minutes.
+  for i in $(seq 1 24); do
+    git fetch --quiet origin main 2>/dev/null && break
+    [ "$i" = 24 ] && { log "ERROR: no network after 2 minutes; giving up"; exit 1; }
+    [ "$i" = 1 ] && log "waiting for network..."
+    sleep 5
+  done
   # This clone belongs to the job: discard anything a failed/aborted run left
   # behind and match GitHub exactly before starting.
-  git fetch --quiet origin main
   git reset --quiet --hard origin/main
   git clean --quiet -fd -- specs latest
 fi
