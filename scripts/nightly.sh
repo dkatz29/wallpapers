@@ -25,7 +25,11 @@ log() { echo "[$(date '+%F %T')] $*"; }
 log "=== Duo wallpaper for $DATE (dry run: $DRY_RUN) ==="
 
 if [ "$DRY_RUN" != 1 ]; then
-  git pull --rebase --quiet origin main
+  # This clone belongs to the job: discard anything a failed/aborted run left
+  # behind and match GitHub exactly before starting.
+  git fetch --quiet origin main
+  git reset --quiet --hard origin/main
+  git clean --quiet -fd -- specs latest
 fi
 
 REPLACING=""

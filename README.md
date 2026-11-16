@@ -65,7 +65,7 @@ version of that day's design, and the next sunrise picks up the new one.
 (`~/Library/LaunchAgents/com.duo-wallpaper.nightly.plist`). If the Mac is asleep
 at midnight, launchd runs it on the next wake. It:
 
-1. pulls `main`; exits if `specs/<today>.json` already exists
+1. resets its clone to `main` on GitHub (clearing anything a failed run left); exits if `specs/<today>.json` already exists
 2. runs `claude -p` headless with the duo-wallpaper skill. Claude may only use
    file tools and `python generator/render.py`, and must not run git
 3. checks the output (date matches, both PNGs 1878 × 2670), then commits and pushes
