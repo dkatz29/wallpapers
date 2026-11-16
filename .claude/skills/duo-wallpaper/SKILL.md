@@ -46,10 +46,31 @@ spec, it draws the light and dark versions with identical geometry, writes them 
 2. Work out today's date **in America/Chicago**: `TZ=America/Chicago date +%F`. The
    routine runs at local midnight, so this is the day the wallpaper will be shown.
    If `specs/<date>.json` already exists, only regenerate when explicitly asked.
-3. Look at the last 7 files in `specs/` and **don't repeat** the previous day's
-   `style` or the previous day's `families` set, and don't reuse a style + dominant
-   colour pairing from the past week. Vary the mood across the week: sandy/khaki
-   days, oceanic blue days, grey/teal days, the occasional full-palette day.
+3. Look at the last 14 files in `specs/` and **rotate styles**: never use a style that
+   appeared in the last 7 days, and prefer the styles used least recently (or never).
+   There are 14 styles; use them all over time. Also don't repeat the previous day's
+   `families` set. Vary the mood across the week: sandy/khaki days, oceanic blue days,
+   grey/teal days, the occasional full-palette day.
+
+   | Style | Look |
+   |---|---|
+   | `waves` | Stacked flowing horizontal bands |
+   | `arcs` | Concentric quarter-rings from a corner |
+   | `orbs` | Overlapping flat circles |
+   | `capsules` | Diagonal pill-shaped bars |
+   | `dunes` | Tilted smooth sand-dune layers |
+   | `tiers` | Terraced plateaus |
+   | `petals` | Leaf shapes fanning from a point: flower, iris or sunburst |
+   | `bauhaus` | Tile grid of quarter circles, half circles and dots (mid-century) |
+   | `squircles` | Nested Apple-icon rounded squares drifting off-centre |
+   | `folds` | Folded-paper facets with straight creases |
+   | `horizon` | Sun/moon disc (first layer colour) behind flat horizon bands |
+   | `ribbons` | Wide flat ribbons flowing down the screen |
+   | `blobs` | Soft organic pebble shapes |
+   | `topo` | Nested organic rings, like a topographic map |
+
+   Even within a style, push variety with `params` (angle, corner, mode, count, scale)
+   so two `petals` days don't look alike.
 4. Write `specs/<date>.json`:
 
    ```json
@@ -57,7 +78,7 @@ spec, it draws the light and dark versions with identical geometry, writes them 
      "date": "2026-11-17",
      "title": "Two-word evocative name",
      "seed": 48213,
-     "style": "waves | arcs | orbs | capsules | dunes | tiers",
+     "style": "one of the 14 styles above",
      "families": ["blue", "teal"],
      "params": {},
      "light": { "background": ["fog", "ice"], "layers": ["mist", "sky", "lagoon", "teal"] },
@@ -78,6 +99,24 @@ spec, it draws the light and dark versions with identical geometry, writes them 
      - `capsules`: `angle` (deg), `thickness` (0.2–0.4 widths), `spacing` (0.6–1.0)
      - `dunes`: `tilt` (-0.25–0.25), `top`, `bottom`
      - `tiers`: `top`, `bottom`
+     - `petals`: `mode` (`flower|fan`), `count` (5–12), `length` (0.5–0.9 widths),
+       `width` (0.12–0.3), `tip` (`pointed|round`), `cx`, `cy`, `spread` (fan degrees).
+       Looks lovely with `opacity` 0.85–0.92 so overlaps blend.
+     - `bauhaus`: `cols` (3–5), `top` (where the grid starts, keep ≥ 0.25),
+       `mix` (weights, e.g. `{"quarter": 3, "half": 2, "circle": 1, "none": 1}`).
+       Tiles cycle through the layer colours, so 4–6 layers works best.
+     - `squircles`: `exponent` (4–6; higher is squarer), `rotation` (deg), `cx`, `cy`,
+       `r_max`, `r_min` (half-size in widths)
+     - `folds`: `tilt` (-0.2–0.2), `top`, `bottom`
+     - `horizon`: `horizon` (0.45–0.7), `sun_r` (0.12–0.35 widths), `sun_x`,
+       `sun_rise` (0 = sitting on the horizon, 1 = fully risen), `curve` (0–0.06).
+       Layer 0 is the sun, so pick a colour that stands out from the bands.
+     - `ribbons`: `width` (0.15–0.32 widths), `amplitude` (0.04–0.2), `frequency`
+       (0.3–1.2), `angle` (deg), `top` (where the rounded heads start; use ≥ 0.2 to
+       keep the clock area clear, or -0.2 for full-height ribbons)
+     - `blobs`: `wobble` (0.08–0.25), `r_min`, `r_max`
+     - `topo`: `wobble` (0.08–0.22), `cx`, `cy`, `r_max`, `r_min`. 5–8 layers;
+       alternating close tones reads best.
 5. Render: `python generator/render.py specs/<date>.json`. This writes
    `latest/light.png`, `latest/dark.png`, `latest/preview.png`, `latest/manifest.json`.
 6. **Look at `latest/preview.png`** (Read it). Critique it honestly: balance, too

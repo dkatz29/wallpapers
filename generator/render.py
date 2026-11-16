@@ -66,7 +66,8 @@ PALETTE: dict[str, dict[str, str]] = {
 COLORS = {name: hexv for tone in PALETTE.values() for name, hexv in tone.items()}
 TONE_OF = {name: tone for tone, group in PALETTE.items() for name in group}
 
-STYLES = ("waves", "arcs", "orbs", "capsules", "dunes", "tiers")
+STYLES = ("waves", "arcs", "orbs", "capsules", "dunes", "tiers",
+          "petals", "bauhaus", "squircles", "folds", "horizon", "ribbons", "blobs", "topo")
 
 
 # ---------------------------------------------------------------- validation
@@ -243,9 +244,244 @@ def geom_tiers(n, rng, p):
     return shapes
 
 
+# ---- shapes that may reuse a layer colour: these return (kind, geom, colour_index)
+
+ASPECT = HEIGHT / WIDTH
+
+
+def _rot(x, y, ang):
+    c, s = math.cos(ang), math.sin(ang)
+    return x * c - y * s, x * s + y * c
+
+
+def geom_petals(n, rng, p):
+    """Leaf shapes fanning from a point: a flat flower, iris or sunburst."""
+    mode = p.get("mode", rng.choice(["flower", "fan"]))
+    if mode == "fan":  # rising from the bottom edge
+        cx, cy = p.get("cx", rng.uniform(0.3, 0.7)), p.get("cy", 1.02)
+        spread, start = p.get("spread", rng.uniform(120, 170)), None
+    else:
+        cx, cy = p.get("cx", rng.uniform(0.35, 0.65)), p.get("cy", rng.uniform(0.58, 0.72))
+        spread, start = 360, rng.uniform(0, 360)
+    count = int(p.get("count", rng.choice([5, 6, 7, 8, 9, 10, 12])))
+    length = _sx(p.get("length", rng.uniform(0.55, 0.85)))  # in screen widths
+    half_w = _sx(p.get("width", rng.uniform(0.15, 0.26))) / 2
+    pointed = p.get("tip", rng.choice(["pointed", "round"])) == "pointed"
+    if start is None:
+        start = -90 - spread / 2
+    ox, oy = _sx(cx), _sy(cy)
+    shapes = []
+    for k in range(count):
+        frac = k / count if spread >= 360 else k / max(1, count - 1)
+        ang = math.radians(start + spread * frac)
+        a = length / 2
+        pts = []
+        for j in range(96):
+            t = 2 * math.pi * j / 96
+            ex = a * math.cos(t)
+            ey = half_w * math.sin(t) * (math.sqrt(1 - abs(math.cos(t))) if pointed else 1)
+            rx, ry = _rot(ex + a, ey, ang)
+            pts.append((ox + rx, oy + ry))
+        shapes.append(("poly", pts, k % n))
+    return shapes
+
+
+def geom_bauhaus(n, rng, p):
+    """Grid of square tiles with quarter circles, half circles and dots (mid-century)."""
+    cols = int(p.get("cols", rng.choice([3, 4, 4, 5])))
+    top = p.get("top", 0.30)
+    cell_w = 1.0 / cols
+    cell_h = cell_w / ASPECT
+    rows = max(1, int((1 - top) / cell_h))
+    y0 = 1 - rows * cell_h
+    weights = p.get("mix", {"quarter": 3, "half": 2, "circle": 1, "none": 1})
+    kinds = [k for k, w in weights.items() for _ in range(int(w))]
+    shapes = []
+    for r in range(rows):
+        for c in range(cols):
+            bx0, by0 = _sx(c * cell_w), _sy(y0 + r * cell_h)
+            s = _sx(cell_w)
+            bx1, by1 = bx0 + s, by0 + s
+            tile = rng.randrange(n)
+            shapes.append(("poly", [(bx0, by0), (bx1 + 1, by0), (bx1 + 1, by1 + 1), (bx0, by1 + 1)], tile))
+            fg = rng.choice([i for i in range(n) if i != tile])
+            kind = rng.choice(kinds)
+            if kind == "quarter":
+                corner = rng.randrange(4)  # 0 TL, 1 TR, 2 BR, 3 BL; pie sweeps into the cell
+                px = bx0 if corner in (0, 3) else bx1
+                py = by0 if corner in (0, 1) else by1
+                st = 90 * corner
+                shapes.append(("pie", ((px - s, py - s, px + s, py + s), st, st + 90), fg))
+            elif kind == "half":
+                side = rng.randrange(4)  # 0 top, 1 right, 2 bottom, 3 left edge
+                mx, my = (bx0 + bx1) / 2, (by0 + by1) / 2
+                px, py, st = [(mx, by0, 0), (bx1, my, 90), (mx, by1, 180), (bx0, my, 270)][side]
+                h = s / 2
+                shapes.append(("pie", ((px - h, py - h, px + h, py + h), st, st + 180), fg))
+            elif kind == "circle":
+                rr = s * rng.choice([0.28, 0.36, 0.42])
+                mx, my = (bx0 + bx1) / 2, (by0 + by1) / 2
+                shapes.append(("ellipse", (mx - rr, my - rr, mx + rr, my + rr), fg))
+    return shapes
+
+
+def _superellipse(cx, cy, rx, ry, e, rot, steps=240):
+    pts = []
+    for j in range(steps):
+        t = 2 * math.pi * j / steps
+        c, s = math.cos(t), math.sin(t)
+        x = rx * math.copysign(abs(c) ** (2 / e), c)
+        y = ry * math.copysign(abs(s) ** (2 / e), s)
+        x, y = _rot(x, y, rot)
+        pts.append((cx + x, cy + y))
+    return pts
+
+
+def geom_squircles(n, rng, p):
+    """Nested Apple-icon squircles drifting off-centre."""
+    e = p.get("exponent", rng.choice([4.0, 5.0, 6.0]))
+    r_max, r_min = p.get("r_max", 0.95), p.get("r_min", 0.16)  # half-size in widths
+    cx, cy = p.get("cx", rng.uniform(0.35, 0.65)), p.get("cy", rng.uniform(0.62, 0.8))
+    dx, dy = rng.uniform(-0.05, 0.05), rng.uniform(-0.035, 0.035)
+    rot = math.radians(p.get("rotation", rng.choice([0, 0, 10, -10, 22, -22, 45])))
+    shapes = []
+    for i in range(n):
+        r = r_max - (r_max - r_min) * i / max(1, n - 1)
+        shapes.append(("poly", _superellipse(_sx(cx + dx * i), _sy(cy + dy * i), _sx(r), _sx(r), e, rot), i))
+    return shapes
+
+
+def geom_folds(n, rng, p):
+    """Folded-paper facets: straight creases with a kink or two, layered down the screen."""
+    tilt = p.get("tilt", rng.choice([0.0, 0.0, -0.14, 0.14]))
+    top, bottom = p.get("top", 0.26), p.get("bottom", 0.9)
+    shapes = []
+    for i in range(n):
+        base = top + (bottom - top) * i / max(1, n - 1)
+        kinks = sorted(rng.uniform(0.15, 0.85) for _ in range(rng.choice([1, 1, 2])))
+        xs = [-0.02] + kinks + [1.02]
+        pts = []
+        for x in xs:
+            y = base + tilt * (x - 0.5) + (rng.uniform(-0.08, 0.08) if 0 < x < 1 else rng.uniform(-0.04, 0.04))
+            pts.append((_sx(x), _sy(y)))
+        pts += [(_sx(1.02), _sy(1.05)), (_sx(-0.02), _sy(1.05))]
+        shapes.append(("poly", pts, i))
+    return shapes
+
+
+def geom_horizon(n, rng, p):
+    """A sun/moon disc (first layer colour) sinking behind flat horizon bands."""
+    horizon = p.get("horizon", rng.uniform(0.5, 0.64))
+    sun_r = p.get("sun_r", rng.uniform(0.17, 0.3))  # in widths
+    sun_x = p.get("sun_x", rng.uniform(0.28, 0.72))
+    sun_y = horizon - (sun_r / ASPECT) * p.get("sun_rise", rng.uniform(0.1, 0.75))
+    sx, sy, sr = _sx(sun_x), _sy(sun_y), _sx(sun_r)
+    shapes = [("ellipse", (sx - sr, sy - sr, sx + sr, sy + sr), 0)]
+    bands = max(1, n - 1)
+    curve = p.get("curve", rng.choice([0.0, 0.03, 0.05]))
+    for i in range(bands):
+        base = horizon + (0.97 - horizon) * (i / bands) ** 1.15
+        c1 = (rng.uniform(0.2, 0.4), base + rng.uniform(-curve, curve))
+        c2 = (rng.uniform(0.6, 0.8), base + rng.uniform(-curve, curve))
+        pts = [(_sx(x), _sy(y)) for x, y in _bezier((-0.02, base + rng.uniform(-0.02, 0.02)), c1, c2,
+                                                       (1.02, base + rng.uniform(-0.02, 0.02)), 90)]
+        pts += [(_sx(1.02), _sy(1.05)), (_sx(-0.02), _sy(1.05))]
+        shapes.append(("poly", pts, 1 + i if n > 1 else 0))
+    return shapes
+
+
+def geom_ribbons(n, rng, p):
+    """Wide flat ribbons flowing down the screen with rounded heads."""
+    half = _sx(p.get("width", rng.uniform(0.2, 0.3))) / 2
+    amp = p.get("amplitude", rng.uniform(0.06, 0.16))  # in widths
+    freq = p.get("frequency", rng.uniform(0.45, 1.0))  # cycles per screen height
+    ang = math.radians(p.get("angle", rng.choice([0, 0, 12, -12, 22, -22])))
+    head = p.get("top", rng.choice([-0.2, 0.22, 0.3]))  # where ribbons start (heights)
+    phase0 = rng.random()
+    shapes = []
+    W2, H2 = _sx(1), _sy(1)
+    for i in range(n):
+        x0 = -0.1 + 1.2 * (i + 0.5) / n + rng.uniform(-0.015, 0.015)
+        ph = phase0 + i * 0.03  # near-parallel so the ribbons flow together
+        start = head + rng.uniform(0, 0.12) if head > 0 else head
+        ys = [start + (1.3 - start) * k / 160 for k in range(161)]
+        centre = []
+        for y in ys:
+            x = x0 + amp * math.sin(2 * math.pi * (freq * y + ph))
+            px, py = _rot(_sx(x) - W2 / 2, _sy(y) - H2 / 2, ang)
+            centre.append((px + W2 / 2, py + H2 / 2))
+        left, right = [], []
+        for k, (cx, cy) in enumerate(centre):
+            ax, ay = centre[max(0, k - 1)]
+            bx, by = centre[min(len(centre) - 1, k + 1)]
+            tx, ty = bx - ax, by - ay
+            norm = math.hypot(tx, ty) or 1
+            nx, ny = -ty / norm, tx / norm
+            left.append((cx + nx * half, cy + ny * half))
+            right.append((cx - nx * half, cy - ny * half))
+        # rounded head: semicircle from right[0] over the top to left[0]
+        (cx, cy), (bx, by) = centre[0], centre[1]
+        tx, ty = bx - cx, by - cy
+        norm = math.hypot(tx, ty) or 1
+        tx, ty = tx / norm, ty / norm
+        rx, ry = right[0][0] - cx, right[0][1] - cy
+        cap = []
+        for j in range(1, 40):
+            th = math.pi * j / 40
+            cap.append((cx + math.cos(th) * rx - math.sin(th) * tx * half,
+                        cy + math.cos(th) * ry - math.sin(th) * ty * half))
+        shapes.append(("poly", right[::-1] + cap + left, i))
+    return shapes
+
+
+def _blob(cx, cy, r, harmonics, steps=200):
+    pts = []
+    for j in range(steps):
+        t = 2 * math.pi * j / steps
+        rr = r * (1 + sum(a * math.sin(k * t + ph) for k, a, ph in harmonics))
+        pts.append((cx + rr * math.cos(t), cy + rr * math.sin(t)))
+    return pts
+
+
+def _harmonics(rng, wobble):
+    return [(k, wobble * rng.uniform(0.4, 1.0) / k ** 0.9, rng.uniform(0, 2 * math.pi)) for k in (2, 3, 4, 5)]
+
+
+def geom_blobs(n, rng, p):
+    """Soft organic pebbles, spread out like orbs."""
+    wobble = p.get("wobble", rng.uniform(0.12, 0.22))
+    radii = sorted((rng.uniform(p.get("r_min", 0.2), p.get("r_max", 0.55)) for _ in range(n)), reverse=True)
+    placed, shapes = [], []
+    for i, r in enumerate(radii):
+        cands = [(rng.uniform(0.0, 1.0), rng.uniform(0.25, 1.0)) for _ in range(12)]
+        cx, cy = max(cands, key=lambda c: min(
+            (math.hypot(c[0] - px, (c[1] - py) * ASPECT) for px, py in placed), default=0))
+        placed.append((cx, cy))
+        shapes.append(("poly", _blob(_sx(cx), _sy(cy), _sx(r), _harmonics(rng, wobble)), i))
+    return shapes
+
+
+def geom_topo(n, rng, p):
+    """Nested organic rings, like a topographic map."""
+    wobble = p.get("wobble", rng.uniform(0.1, 0.2))
+    cx, cy = p.get("cx", rng.uniform(0.25, 0.75)), p.get("cy", rng.uniform(0.62, 0.85))
+    r_max, r_min = p.get("r_max", 1.05), p.get("r_min", 0.12)
+    base = _harmonics(rng, wobble)
+    dx, dy = rng.uniform(-0.03, 0.03), rng.uniform(-0.02, 0.02)
+    shapes = []
+    for i in range(n):
+        r = r_max - (r_max - r_min) * i / max(1, n - 1)
+        harm = [(k, a * (1 + 0.15 * i), ph + 0.12 * i) for k, a, ph in base]
+        shapes.append(("poly", _blob(_sx(cx + dx * i), _sy(cy + dy * i), _sx(r), harm), i))
+    return shapes
+
+
 GEOMETRY = {
     "waves": geom_waves, "arcs": geom_arcs, "orbs": geom_orbs,
     "capsules": geom_capsules, "dunes": geom_dunes, "tiers": geom_tiers,
+    "petals": geom_petals, "bauhaus": geom_bauhaus, "squircles": geom_squircles,
+    "folds": geom_folds, "horizon": geom_horizon, "ribbons": geom_ribbons,
+    "blobs": geom_blobs, "topo": geom_topo,
 }
 
 
@@ -273,16 +509,27 @@ def render_variant(spec: dict, mode: str, shapes) -> Image.Image:
     v = spec[mode]
     params = spec.get("params", {})
     img = _background(v["background"], size, params.get("gradient_angle", 0))
-    opacity = float(params.get("opacity", 1.0))
-    for (kind, geom), color in zip(shapes, v["layers"]):
-        mask = Image.new("L", size, 0)
-        d = ImageDraw.Draw(mask)
-        fill = int(255 * max(0.0, min(1.0, opacity)))
+    opacity = max(0.0, min(1.0, float(params.get("opacity", 1.0))))
+
+    def draw(d, kind, geom, fill):
         if kind == "poly":
             d.polygon(geom, fill=fill)
-        else:
+        elif kind == "ellipse":
             d.ellipse(geom, fill=fill)
-        img.paste(Image.new("RGB", size, _rgb(color)), (0, 0), mask)
+        elif kind == "pie":
+            bbox, start, end = geom
+            d.pieslice(bbox, start, end, fill=fill)
+
+    direct = ImageDraw.Draw(img)
+    for kind, geom, ci in shapes:
+        color = _rgb(v["layers"][ci % len(v["layers"])])
+        if opacity >= 1.0:
+            draw(direct, kind, geom, color)
+        else:
+            mask = Image.new("L", size, 0)
+            draw(ImageDraw.Draw(mask), kind, geom, int(255 * opacity))
+            img.paste(Image.new("RGB", size, color), (0, 0), mask)
+            direct = ImageDraw.Draw(img)
     return img.resize((WIDTH, HEIGHT), Image.LANCZOS)
 
 
@@ -290,7 +537,9 @@ def render(spec: dict) -> dict[str, Image.Image]:
     validate(spec)
     rng = random.Random(int(spec["seed"]))
     n = len(spec["light"]["layers"])
-    shapes = GEOMETRY[spec["style"]](n, rng, spec.get("params", {}))
+    raw = GEOMETRY[spec["style"]](n, rng, spec.get("params", {}))
+    # Older styles return (kind, geom) with one shape per layer; newer ones add a colour index.
+    shapes = [s if len(s) == 3 else (s[0], s[1], i) for i, s in enumerate(raw)]
     return {mode: render_variant(spec, mode, shapes) for mode in ("light", "dark")}
 
 
