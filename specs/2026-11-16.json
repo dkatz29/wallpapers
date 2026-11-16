@@ -3,6 +3,7 @@
   "title": "Low Tide",
   "seed": 71604,
   "style": "arcs",
+  "families": ["tan", "khaki", "teal"],
   "params": { "corner": "br", "r_max": 1.35, "r_min": 0.38, "gradient_angle": 0 },
   "light": { "background": ["linen", "parchment"], "layers": ["sand", "khaki", "seafoam", "lagoon", "teal"] },
   "dark":  { "background": ["ink", "midnight"], "layers": ["graphite", "umber", "harbor", "deep_teal", "teal"] },

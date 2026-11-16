@@ -17,6 +17,19 @@ spec, it draws the light and dark versions with identical geometry, writes them 
   no text, no logos.
 - **Colours: blues, teals, tans, khakis, greys only.** The renderer only accepts
   names from its palette (`python generator/render.py --palette`), so stick to those.
+- **Don't use every colour family every day.** Each day, pick a subset of the five
+  families: usually 2–4, occasionally just 1–2 for a quiet tonal day, and only
+  now and then all 5. Light and dark versions use the same families. Change the mix from
+  day to day (e.g. tan + khaki only; blue + grey; teal + tan + grey; all five).
+  Families by palette name:
+  - blue: `ice`, `mist`, `sky`, `cornflower`, `ocean`, `navy`, `midnight`
+  - teal: `seafoam`, `lagoon`, `teal`, `deep_teal`, `harbor`
+  - tan: `linen`, `parchment`, `sand`, `dune`, `umber`
+  - khaki: `khaki`, `olive_khaki`
+  - grey: `fog`, `cloud`, `stone`, `slate`, `graphite`, `ink`
+
+  Neutral backgrounds (`linen`, `fog`, `ink`, `graphite`) don't count toward the
+  family mix. Record the chosen families in the spec as `"families": [...]`.
 - **Inner display only:** 1878 × 2670. The outer display lines up with it, so don't
   make a separate outer image.
 - **Light version** (sunrise to sunset): background from `light` (optionally `mid`)
@@ -34,8 +47,9 @@ spec, it draws the light and dark versions with identical geometry, writes them 
    routine runs at local midnight, so this is the day the wallpaper will be shown.
    If `specs/<date>.json` already exists, only regenerate when explicitly asked.
 3. Look at the last 7 files in `specs/` and **don't repeat** the previous day's
-   `style`, and don't reuse a style + dominant colour pairing from the past week.
-   Vary the mood across the week: sandy/khaki days, oceanic blue days, grey/teal days.
+   `style` or the previous day's `families` set, and don't reuse a style + dominant
+   colour pairing from the past week. Vary the mood across the week: sandy/khaki
+   days, oceanic blue days, grey/teal days, the occasional full-palette day.
 4. Write `specs/<date>.json`:
 
    ```json
@@ -44,8 +58,9 @@ spec, it draws the light and dark versions with identical geometry, writes them 
      "title": "Two-word evocative name",
      "seed": 48213,
      "style": "waves | arcs | orbs | capsules | dunes | tiers",
+     "families": ["blue", "teal"],
      "params": {},
-     "light": { "background": ["linen", "sand"], "layers": ["mist", "sky", "lagoon", "teal"] },
+     "light": { "background": ["fog", "ice"], "layers": ["mist", "sky", "lagoon", "teal"] },
      "dark":  { "background": ["midnight", "navy"], "layers": ["harbor", "deep_teal", "teal", "ocean"] },
      "notes": "One sentence on the idea."
    }
