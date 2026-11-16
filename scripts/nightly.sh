@@ -9,6 +9,7 @@
 # Claude only gets file tools + the renderer; git is handled here.
 #
 # Test without publishing:  DRY_RUN=1 WALLPAPER_DATE=2026-11-17 scripts/nightly.sh
+# Replace today's design:   FORCE=1 scripts/nightly.sh
 set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
@@ -27,9 +28,21 @@ if [ "$DRY_RUN" != 1 ]; then
   git pull --rebase --quiet origin main
 fi
 
+REPLACING=""
 if [ -f "$SPEC" ]; then
-  log "$SPEC already exists; today's wallpaper is published. Nothing to do."
-  exit 0
+  if [ "${FORCE:-0}" = 1 ]; then
+    REPLACING=$(/usr/bin/python3 - "$SPEC" <<'PY'
+import json, sys
+s = json.load(open(sys.argv[1]))
+print('"%s" (%s, families %s)' % (s["title"], s["style"], ",".join(s.get("families", [])) or "unrecorded"))
+PY
+)
+    log "FORCE=1: replacing today's $REPLACING"
+    rm "$SPEC"
+  else
+    log "$SPEC already exists; today's wallpaper is published. Nothing to do. (FORCE=1 to replace it)"
+    exit 0
+  fi
 fi
 
 if [ ! -x .venv/bin/python ]; then
@@ -38,9 +51,15 @@ if [ ! -x .venv/bin/python ]; then
 fi
 .venv/bin/pip install -q --disable-pip-version-check -r requirements.txt
 
+EXTRA=""
+if [ -n "$REPLACING" ]; then
+  EXTRA="
+- This replaces the earlier design for this date, $REPLACING. Make something clearly different: another style and another colour-family mix."
+fi
+
 PROMPT="Use the duo-wallpaper skill (.claude/skills/duo-wallpaper/SKILL.md) to design today's iPhone Duo wallpaper.
 
-- Today's date is $DATE. Write the spec to $SPEC.
+- Today's date is $DATE. Write the spec to $SPEC.$EXTRA
 - Render with exactly: python generator/render.py $SPEC
 - Read latest/preview.png, critique it, and iterate (edit the spec, re-render) per the skill.
 - Use the Read/Glob tools to look at recent files in specs/ and at --palette output if needed: python generator/render.py --palette
