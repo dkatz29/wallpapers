@@ -1,18 +1,15 @@
 {
   "date": "2026-11-16",
-  "title": "Slate Moonrise",
+  "title": "Desert Doorway",
   "seed": 73519,
-  "style": "horizon",
-  "families": ["blue", "grey"],
+  "style": "arches",
+  "families": ["tan", "khaki", "teal"],
   "params": {
-    "horizon": 0.5,
-    "sun_r": 0.22,
-    "sun_x": 0.62,
-    "sun_rise": 0.55,
-    "curve": 0.03,
-    "gradient_angle": 90
+    "mode": "nested",
+    "cx": 0.57,
+    "gradient_angle": 100
   },
-  "light": { "background": ["ice", "fog"], "layers": ["sky", "cloud", "mist", "stone", "cornflower"] },
-  "dark":  { "background": ["midnight", "ink"], "layers": ["slate", "graphite", "navy", "graphite", "ocean"] },
-  "notes": "A pale blue disc rising over layered grey and blue bands, cool and still for a mid-November day."
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "khaki", "seafoam", "lagoon", "dune"] },
+  "dark":  { "background": ["ink", "umber"], "layers": ["umber", "olive_khaki", "harbor", "deep_teal", "teal"] },
+  "notes": "A mid-century nested doorway in sun-baked tans and khaki, opening onto a cool teal core."
 }
