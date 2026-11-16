@@ -1,11 +1,11 @@
 {
   "date": "2026-11-16",
-  "title": "Khaki Tidewater",
-  "seed": 28846,
-  "style": "dunes",
-  "families": ["tan", "khaki", "teal"],
-  "params": { "tilt": 0.12, "top": 0.42, "bottom": 0.96, "gradient_angle": 100 },
-  "light": { "background": ["linen", "parchment"], "layers": ["sand", "seafoam", "khaki", "lagoon", "dune"] },
-  "dark":  { "background": ["ink", "umber"], "layers": ["graphite", "harbor", "olive_khaki", "deep_teal", "umber"] },
-  "notes": "Low sandy dunes drifting across the lower half, with a strip of tidewater teal threading between the khaki ridges."
+  "title": "Harbor Rings",
+  "seed": 73519,
+  "style": "arcs",
+  "families": ["blue", "teal"],
+  "params": { "corner": "br", "r_max": 1.35, "r_min": 0.22, "gradient_angle": 120 },
+  "light": { "background": ["ice", "mist"], "layers": ["seafoam", "sky", "lagoon", "cornflower", "teal"] },
+  "dark":  { "background": ["midnight", "navy"], "layers": ["harbor", "navy", "deep_teal", "ocean", "teal"] },
+  "notes": "Concentric ripples spreading from the lower-right corner, like rings across a still harbour at dawn and dusk."
 }
