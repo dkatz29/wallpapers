@@ -1,11 +1,11 @@
 {
   "date": "2026-11-16",
-  "title": "Slate Drift",
-  "seed": 71931,
-  "style": "capsules",
-  "families": ["blue", "grey"],
-  "params": { "angle": -32, "thickness": 0.26, "spacing": 0.85, "gradient_angle": 100 },
-  "light": { "background": ["fog", "ice"], "layers": ["cloud", "mist", "sky", "stone", "cornflower"] },
-  "dark":  { "background": ["ink", "midnight"], "layers": ["graphite", "navy", "slate", "graphite", "navy"] },
-  "notes": "Soft diagonal capsules of cool blue and grey drifting past each other like clouds over a November lake."
+  "title": "Khaki Tidewater",
+  "seed": 28846,
+  "style": "dunes",
+  "families": ["tan", "khaki", "teal"],
+  "params": { "tilt": 0.12, "top": 0.42, "bottom": 0.96, "gradient_angle": 100 },
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "seafoam", "khaki", "lagoon", "dune"] },
+  "dark":  { "background": ["ink", "umber"], "layers": ["graphite", "harbor", "olive_khaki", "deep_teal", "umber"] },
+  "notes": "Low sandy dunes drifting across the lower half, with a strip of tidewater teal threading between the khaki ridges."
 }
