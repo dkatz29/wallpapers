@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-16",
+  "title": "Low Tide",
+  "seed": 71604,
+  "style": "arcs",
+  "params": { "corner": "br", "r_max": 1.35, "r_min": 0.38, "gradient_angle": 0 },
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "khaki", "seafoam", "lagoon", "teal"] },
+  "dark":  { "background": ["ink", "midnight"], "layers": ["graphite", "umber", "harbor", "deep_teal", "teal"] },
+  "notes": "Concentric sand-to-sea bands rising from the lower right corner, like a shoreline at low tide."
+}
