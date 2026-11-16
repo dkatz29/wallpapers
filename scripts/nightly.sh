@@ -69,17 +69,35 @@ PROMPT="Use the duo-wallpaper skill (.claude/skills/duo-wallpaper/SKILL.md) to d
 # Long-lived token for unattended runs (from `claude setup-token`), kept in the Keychain:
 #   security add-generic-password -U -a "$USER" -s duo-wallpaper-claude-token -w
 if TOKEN=$(security find-generic-password -a "$USER" -s duo-wallpaper-claude-token -w 2>/dev/null); then
+  # Tokens copied from a wrapped Terminal line often pick up spaces/newlines.
+  TOKEN=$(printf %s "$TOKEN" | tr -d '[:space:]')
   export CLAUDE_CODE_OAUTH_TOKEN="$TOKEN"
+  unset TOKEN
 else
   log "note: no Keychain token found; using the normal Claude Code login"
 fi
 
+run_claude() {
+  claude -p "$PROMPT" \
+    --permission-mode acceptEdits \
+    --allowedTools "Read" "Write" "Edit" "Glob" "Grep" \
+                   "Bash(python generator/render.py *)" \
+    --max-turns 40
+}
+
 log "running Claude"
-claude -p "$PROMPT" \
-  --permission-mode acceptEdits \
-  --allowedTools "Read" "Write" "Edit" "Glob" "Grep" \
-                 "Bash(python generator/render.py *)" \
-  --max-turns 40
+if ! run_claude; then
+  if [ -n "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then
+    log "WARNING: Claude failed with the Keychain token (invalid or expired?)."
+    log "         Re-create it: claude setup-token, then"
+    log "         security add-generic-password -U -a \"\$USER\" -s duo-wallpaper-claude-token -w"
+    log "retrying with the normal Claude Code login"
+    unset CLAUDE_CODE_OAUTH_TOKEN
+    run_claude || { log "ERROR: Claude failed with the normal login too"; exit 1; }
+  else
+    log "ERROR: Claude failed"; exit 1
+  fi
+fi
 
 # Verify Claude produced a complete, valid result before publishing anything.
 [ -f "$SPEC" ] || { log "ERROR: Claude did not write $SPEC"; exit 1; }
