@@ -1,18 +1,22 @@
 {
   "date": "2026-11-16",
-  "title": "Olive Tide",
-  "seed": 73519,
-  "style": "horizon",
-  "families": ["blue", "khaki"],
+  "title": "Lagoon Fan",
+  "seed": 73914,
+  "style": "petals",
+  "families": ["teal", "tan"],
   "params": {
-    "horizon": 0.58,
-    "sun_r": 0.24,
-    "sun_x": 0.73,
-    "sun_rise": 0.55,
-    "curve": 0.03,
+    "mode": "fan",
+    "count": 9,
+    "length": 0.9,
+    "width": 0.2,
+    "tip": "round",
+    "cx": 0.32,
+    "cy": 1.04,
+    "spread": 110,
+    "opacity": 0.9,
     "gradient_angle": 90
   },
-  "light": { "background": ["ice", "mist"], "layers": ["khaki", "sky", "cornflower", "khaki", "ocean"] },
-  "dark":  { "background": ["midnight", "navy"], "layers": ["olive_khaki", "navy", "graphite", "olive_khaki", "ink"] },
-  "notes": "A khaki sun settling behind calm blue water bands, warm against cool."
+  "light": { "background": ["linen", "parchment"], "layers": ["seafoam", "lagoon", "sand", "dune", "teal"] },
+  "dark":  { "background": ["ink", "umber"], "layers": ["harbor", "deep_teal", "umber", "umber", "teal"] },
+  "notes": "A sandy fan of teal and dune leaves opening up from the lower-left corner, like reeds at a lagoon's edge."
 }
