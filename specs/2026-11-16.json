@@ -1,18 +1,18 @@
 {
   "date": "2026-11-16",
-  "title": "Stone Contours",
-  "seed": 71594,
-  "style": "topo",
-  "families": ["tan", "grey"],
+  "title": "Olive Tide",
+  "seed": 73519,
+  "style": "horizon",
+  "families": ["blue", "khaki"],
   "params": {
-    "wobble": 0.12,
-    "cx": 0.68,
-    "cy": 0.7,
-    "r_max": 1.0,
-    "r_min": 0.1,
-    "gradient_angle": 160
+    "horizon": 0.58,
+    "sun_r": 0.24,
+    "sun_x": 0.73,
+    "sun_rise": 0.55,
+    "curve": 0.03,
+    "gradient_angle": 90
   },
-  "light": { "background": ["linen", "parchment"], "layers": ["parchment", "cloud", "sand", "fog", "sand", "stone", "parchment", "dune"] },
-  "dark":  { "background": ["ink", "graphite"], "layers": ["graphite", "umber", "ink", "graphite", "umber", "ink", "umber", "dune"] },
-  "notes": "Warm sand and cool stone contour rings rising from the lower right like a quiet survey map."
+  "light": { "background": ["ice", "mist"], "layers": ["khaki", "sky", "cornflower", "khaki", "ocean"] },
+  "dark":  { "background": ["midnight", "navy"], "layers": ["olive_khaki", "navy", "graphite", "olive_khaki", "ink"] },
+  "notes": "A khaki sun settling behind calm blue water bands, warm against cool."
 }
