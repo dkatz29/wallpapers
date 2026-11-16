@@ -1,11 +1,18 @@
 {
   "date": "2026-11-16",
-  "title": "Harbor Rings",
-  "seed": 73519,
-  "style": "arcs",
-  "families": ["blue", "teal"],
-  "params": { "corner": "br", "r_max": 1.35, "r_min": 0.22, "gradient_angle": 120 },
-  "light": { "background": ["ice", "mist"], "layers": ["seafoam", "sky", "lagoon", "cornflower", "teal"] },
-  "dark":  { "background": ["midnight", "navy"], "layers": ["harbor", "navy", "deep_teal", "ocean", "teal"] },
-  "notes": "Concentric ripples spreading from the lower-right corner, like rings across a still harbour at dawn and dusk."
+  "title": "Stone Contours",
+  "seed": 71594,
+  "style": "topo",
+  "families": ["tan", "grey"],
+  "params": {
+    "wobble": 0.12,
+    "cx": 0.68,
+    "cy": 0.7,
+    "r_max": 1.0,
+    "r_min": 0.1,
+    "gradient_angle": 160
+  },
+  "light": { "background": ["linen", "parchment"], "layers": ["parchment", "cloud", "sand", "fog", "sand", "stone", "parchment", "dune"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["graphite", "umber", "ink", "graphite", "umber", "ink", "umber", "dune"] },
+  "notes": "Warm sand and cool stone contour rings rising from the lower right like a quiet survey map."
 }
