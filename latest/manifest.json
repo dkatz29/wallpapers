@@ -1,11 +1,11 @@
 {
   "date": "2026-11-16",
-  "title": "Low Tide",
-  "style": "arcs",
+  "title": "Slate Drift",
+  "style": "capsules",
   "spec": "specs/2026-11-16.json",
   "size": [
     1878,
     2670
   ],
-  "rendered_at": "2026-11-16T15:40:24+00:00"
+  "rendered_at": "2026-11-16T16:17:54+00:00"
 }

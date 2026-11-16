@@ -1,11 +1,11 @@
 {
   "date": "2026-11-16",
-  "title": "Low Tide",
-  "seed": 71604,
-  "style": "arcs",
-  "families": ["tan", "khaki", "teal"],
-  "params": { "corner": "br", "r_max": 1.35, "r_min": 0.38, "gradient_angle": 0 },
-  "light": { "background": ["linen", "parchment"], "layers": ["sand", "khaki", "seafoam", "lagoon", "teal"] },
-  "dark":  { "background": ["ink", "midnight"], "layers": ["graphite", "umber", "harbor", "deep_teal", "teal"] },
-  "notes": "Concentric sand-to-sea bands rising from the lower right corner, like a shoreline at low tide."
+  "title": "Slate Drift",
+  "seed": 71931,
+  "style": "capsules",
+  "families": ["blue", "grey"],
+  "params": { "angle": -32, "thickness": 0.26, "spacing": 0.85, "gradient_angle": 100 },
+  "light": { "background": ["fog", "ice"], "layers": ["cloud", "mist", "sky", "stone", "cornflower"] },
+  "dark":  { "background": ["ink", "midnight"], "layers": ["graphite", "navy", "slate", "graphite", "navy"] },
+  "notes": "Soft diagonal capsules of cool blue and grey drifting past each other like clouds over a November lake."
 }
