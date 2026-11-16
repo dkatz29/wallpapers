@@ -1,22 +1,18 @@
 {
   "date": "2026-11-16",
-  "title": "Lagoon Fan",
-  "seed": 73914,
-  "style": "petals",
-  "families": ["teal", "tan"],
+  "title": "Slate Moonrise",
+  "seed": 73519,
+  "style": "horizon",
+  "families": ["blue", "grey"],
   "params": {
-    "mode": "fan",
-    "count": 9,
-    "length": 0.9,
-    "width": 0.2,
-    "tip": "round",
-    "cx": 0.32,
-    "cy": 1.04,
-    "spread": 110,
-    "opacity": 0.9,
+    "horizon": 0.58,
+    "sun_r": 0.22,
+    "sun_x": 0.62,
+    "sun_rise": 0.55,
+    "curve": 0.03,
     "gradient_angle": 90
   },
-  "light": { "background": ["linen", "parchment"], "layers": ["seafoam", "lagoon", "sand", "dune", "teal"] },
-  "dark":  { "background": ["ink", "umber"], "layers": ["harbor", "deep_teal", "umber", "umber", "teal"] },
-  "notes": "A sandy fan of teal and dune leaves opening up from the lower-left corner, like reeds at a lagoon's edge."
+  "light": { "background": ["ice", "fog"], "layers": ["sky", "cloud", "mist", "stone", "cornflower"] },
+  "dark":  { "background": ["midnight", "ink"], "layers": ["slate", "graphite", "navy", "graphite", "ocean"] },
+  "notes": "A pale blue disc rising over layered grey and blue bands, cool and still for a mid-November day."
 }
