@@ -1,15 +1,19 @@
 {
   "date": "2026-11-17",
-  "title": "Tidewater Scales",
-  "seed": 51864,
-  "style": "scales",
-  "families": ["blue", "tan"],
+  "title": "Pewter Squircles",
+  "seed": 60417,
+  "style": "squircles",
+  "families": ["blue", "grey"],
   "params": {
-    "cols": 2,
-    "rings": 3,
-    "gradient_angle": 90
+    "exponent": 5,
+    "rotation": 8,
+    "cx": 0.6,
+    "cy": 0.52,
+    "r_max": 0.46,
+    "r_min": 0.12,
+    "gradient_angle": 120
   },
-  "light": { "background": ["linen", "parchment"], "layers": ["ice", "sand", "mist", "parchment", "sky"] },
-  "dark":  { "background": ["midnight", "ink"], "layers": ["navy", "umber", "midnight", "navy", "ocean"] },
-  "notes": "Seigaiha waves alternating sea-blue and sand, like tide lines layered on a beach."
+  "light": { "background": ["fog", "ice"], "layers": ["cloud", "mist", "stone", "sky", "cornflower"] },
+  "dark":  { "background": ["ink", "midnight"], "layers": ["graphite", "navy", "slate", "midnight", "ocean"] },
+  "notes": "Nested rounded squares in pewter and cool blue drift off to the right, like stacked app icons at dusk."
 }
