@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-17",
+  "title": "Slate Moonrise",
+  "seed": 51807,
+  "style": "horizon",
+  "families": ["blue", "grey"],
+  "params": {
+    "horizon": 0.6,
+    "sun_r": 0.22,
+    "sun_x": 0.68,
+    "sun_rise": 0.55,
+    "curve": 0.03,
+    "gradient_angle": 90
+  },
+  "light": { "background": ["ice", "fog"], "layers": ["cornflower", "mist", "cloud", "sky", "stone", "slate"] },
+  "dark":  { "background": ["midnight", "ink"], "layers": ["slate", "navy", "graphite", "ocean", "midnight", "ink"] },
+  "notes": "A pale disc rises off-centre over calm blue-grey horizon bands, like a cold November morning over a lake."
+}
