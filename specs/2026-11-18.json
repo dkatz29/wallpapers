@@ -1,16 +1,18 @@
 {
   "date": "2026-11-18",
-  "title": "Celadon Tiles",
-  "seed": 38842,
-  "style": "bauhaus",
-  "families": ["teal", "khaki", "grey"],
+  "title": "Harbour Sunrise",
+  "seed": 51873,
+  "style": "horizon",
+  "families": ["blue", "tan"],
   "params": {
-    "cols": 5,
-    "top": 0.3,
-    "mix": {"quarter": 3, "half": 2, "circle": 1, "none": 1},
-    "gradient_angle": 160
+    "horizon": 0.58,
+    "sun_r": 0.24,
+    "sun_x": 0.68,
+    "sun_rise": 0.55,
+    "curve": 0.03,
+    "gradient_angle": 90
   },
-  "light": { "background": ["fog", "cloud"], "layers": ["seafoam", "khaki", "stone", "lagoon", "cloud", "teal"] },
-  "dark":  { "background": ["ink", "graphite"], "layers": ["harbor", "olive_khaki", "graphite", "deep_teal", "slate", "teal"] },
-  "notes": "A mid-century tile grid of quarter and half circles in celadon, khaki and pewter, like a calm Bauhaus print."
+  "light": { "background": ["linen", "ice"], "layers": ["dune", "sand", "mist", "sky", "cornflower", "ocean"] },
+  "dark":  { "background": ["midnight", "navy"], "layers": ["dune", "umber", "navy", "ocean", "navy", "midnight"] },
+  "notes": "A warm sand-coloured sun half-risen over calm blue harbour bands, with a sandbar catching the light."
 }
