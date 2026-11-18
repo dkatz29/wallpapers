@@ -1,15 +1,16 @@
 {
   "date": "2026-11-18",
-  "title": "Sandstone Doorways",
-  "seed": 70914,
-  "style": "arches",
-  "families": ["tan", "khaki", "grey"],
+  "title": "Celadon Tiles",
+  "seed": 38842,
+  "style": "bauhaus",
+  "families": ["teal", "khaki", "grey"],
   "params": {
-    "mode": "nested",
-    "cx": 0.57,
-    "gradient_angle": 100
+    "cols": 5,
+    "top": 0.3,
+    "mix": {"quarter": 3, "half": 2, "circle": 1, "none": 1},
+    "gradient_angle": 160
   },
-  "light": { "background": ["linen", "parchment"], "layers": ["sand", "khaki", "stone", "dune", "cloud"] },
-  "dark":  { "background": ["ink", "graphite"], "layers": ["umber", "olive_khaki", "graphite", "slate", "umber"] },
-  "notes": "Mid-century nested doorway arches in warm sandstone and cool stone, set off-centre like a sunlit gallery wall."
+  "light": { "background": ["fog", "cloud"], "layers": ["seafoam", "khaki", "stone", "lagoon", "cloud", "teal"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["harbor", "olive_khaki", "graphite", "deep_teal", "slate", "teal"] },
+  "notes": "A mid-century tile grid of quarter and half circles in celadon, khaki and pewter, like a calm Bauhaus print."
 }
