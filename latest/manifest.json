@@ -1,11 +1,11 @@
 {
-  "date": "2026-11-17",
-  "title": "Pewter Squircles",
-  "style": "squircles",
-  "spec": "specs/2026-11-17.json",
+  "date": "2026-11-18",
+  "title": "Sandstone Doorways",
+  "style": "arches",
+  "spec": "specs/2026-11-18.json",
   "size": [
     1878,
     2670
   ],
-  "rendered_at": "2026-11-17T21:06:07+00:00"
+  "rendered_at": "2026-11-18T06:26:50+00:00"
 }

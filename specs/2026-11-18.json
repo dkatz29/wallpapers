@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-18",
+  "title": "Sandstone Doorways",
+  "seed": 70914,
+  "style": "arches",
+  "families": ["tan", "khaki", "grey"],
+  "params": {
+    "mode": "nested",
+    "cx": 0.57,
+    "gradient_angle": 100
+  },
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "khaki", "stone", "dune", "cloud"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["umber", "olive_khaki", "graphite", "slate", "umber"] },
+  "notes": "Mid-century nested doorway arches in warm sandstone and cool stone, set off-centre like a sunlit gallery wall."
+}
