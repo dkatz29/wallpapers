@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-19",
+  "title": "Slate Shoals",
+  "seed": 71904,
+  "style": "prisms",
+  "families": ["teal", "grey"],
+  "params": { "cols": 5, "jitter": 0.12, "angle": 35 },
+  "light": { "background": ["fog", "cloud"], "layers": ["fog", "cloud", "stone", "seafoam", "lagoon", "teal"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["ink", "graphite", "harbor", "deep_teal", "deep_teal", "teal"] },
+  "notes": "A calm low-poly drift from pale grey into teal, like light over shallow water and rock."
+}
