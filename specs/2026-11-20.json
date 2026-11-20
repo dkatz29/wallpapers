@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-20",
+  "title": "Khaki Tide",
+  "seed": 70412,
+  "style": "scales",
+  "families": ["tan", "khaki"],
+  "params": { "cols": 2, "rings": 3, "gradient_angle": 90 },
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "linen", "sand", "khaki"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["umber", "graphite", "umber", "olive_khaki"] },
+  "notes": "Calm seigaiha scales in warm sand and khaki, a quiet tonal day after cool teal facets."
+}
