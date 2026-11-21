@@ -1,11 +1,11 @@
 {
-  "date": "2026-11-20",
-  "title": "Khaki Tide",
-  "style": "scales",
-  "spec": "specs/2026-11-20.json",
+  "date": "2026-11-21",
+  "title": "Lagoon Contours",
+  "style": "topo",
+  "spec": "specs/2026-11-21.json",
   "size": [
     1878,
     2670
   ],
-  "rendered_at": "2026-11-20T06:00:37+00:00"
+  "rendered_at": "2026-11-21T06:01:09+00:00"
 }

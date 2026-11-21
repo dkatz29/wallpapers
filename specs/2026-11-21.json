@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-21",
+  "title": "Lagoon Contours",
+  "seed": 73519,
+  "style": "topo",
+  "families": ["blue", "teal"],
+  "params": {
+    "wobble": 0.14,
+    "cx": 0.68,
+    "cy": 0.62,
+    "r_max": 0.98,
+    "r_min": 0.12,
+    "gradient_angle": 120
+  },
+  "light": { "background": ["fog", "ice"], "layers": ["mist", "seafoam", "sky", "lagoon", "cornflower", "teal"] },
+  "dark":  { "background": ["midnight", "navy"], "layers": ["navy", "harbor", "deep_teal", "navy", "ocean", "teal"] },
+  "notes": "Oceanic contour rings drifting off to the lower right, like soundings on a calm lagoon chart."
+}
