@@ -1,11 +1,11 @@
 {
   "date": "2026-11-22",
-  "title": "Stone Sunburst",
-  "seed": 71946,
-  "style": "sunburst",
-  "families": ["tan", "khaki", "grey"],
-  "params": { "cx": 0.27, "cy": 0.82, "rays": 18, "r": 0.16, "gradient_angle": 0 },
-  "light": { "background": ["linen", "parchment"], "layers": ["cloud", "sand", "khaki", "stone", "dune"] },
-  "dark":  { "background": ["ink", "graphite"], "layers": ["graphite", "umber", "ink", "slate", "olive_khaki"] },
-  "notes": "A low mid-century sunburst rising from the bottom of the landscape frame in warm sand, khaki and stone."
+  "title": "Lagoon Doorway",
+  "seed": 70413,
+  "style": "arches",
+  "families": ["teal", "tan"],
+  "params": { "mode": "nested", "cx": 0.56, "gradient_angle": 90 },
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "seafoam", "dune", "lagoon", "teal"] },
+  "dark":  { "background": ["ink", "harbor"], "layers": ["umber", "deep_teal", "dune", "harbor", "deep_teal"] },
+  "notes": "A nested mid-century doorway of sand and lagoon tones, set just off the fold."
 }
