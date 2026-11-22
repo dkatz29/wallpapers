@@ -1,11 +1,11 @@
 {
-  "date": "2026-11-21",
-  "title": "Lagoon Contours",
-  "style": "topo",
-  "spec": "specs/2026-11-21.json",
+  "date": "2026-11-22",
+  "title": "Stone Sunburst",
+  "style": "sunburst",
+  "spec": "specs/2026-11-22.json",
   "size": [
     1878,
     2670
   ],
-  "rendered_at": "2026-11-21T06:01:09+00:00"
+  "rendered_at": "2026-11-22T06:17:51+00:00"
 }

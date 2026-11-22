@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-22",
+  "title": "Stone Sunburst",
+  "seed": 71946,
+  "style": "sunburst",
+  "families": ["tan", "khaki", "grey"],
+  "params": { "cx": 0.27, "cy": 0.82, "rays": 18, "r": 0.16, "gradient_angle": 0 },
+  "light": { "background": ["linen", "parchment"], "layers": ["cloud", "sand", "khaki", "stone", "dune"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["graphite", "umber", "ink", "slate", "olive_khaki"] },
+  "notes": "A low mid-century sunburst rising from the bottom of the landscape frame in warm sand, khaki and stone."
+}
