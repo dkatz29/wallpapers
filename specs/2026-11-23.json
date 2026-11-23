@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-23",
+  "title": "Slate Ridges",
+  "seed": 83306,
+  "style": "mountains",
+  "families": ["blue", "grey", "khaki"],
+  "params": { "top": 0.5, "bottom": 0.98, "height": 0.22, "gradient_angle": 90 },
+  "light": { "background": ["ice", "fog"], "layers": ["mist", "cloud", "sky", "khaki", "stone"] },
+  "dark":  { "background": ["midnight", "ink"], "layers": ["navy", "graphite", "ocean", "olive_khaki", "graphite"] },
+  "notes": "Layered flat ranges fading from misty blue to stone, with one khaki ridge for warmth."
+}

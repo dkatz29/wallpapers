@@ -1,11 +1,11 @@
 {
-  "date": "2026-11-22",
-  "title": "Lagoon Doorway",
-  "style": "arches",
-  "spec": "specs/2026-11-22.json",
+  "date": "2026-11-23",
+  "title": "Slate Ridges",
+  "style": "mountains",
+  "spec": "specs/2026-11-23.json",
   "size": [
     1878,
     2670
   ],
-  "rendered_at": "2026-11-22T16:22:50+00:00"
+  "rendered_at": "2026-11-23T06:05:59+00:00"
 }
