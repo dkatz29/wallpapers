@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-24",
+  "title": "Teal Tiles",
+  "seed": 72419,
+  "style": "bauhaus",
+  "families": ["teal", "tan", "grey"],
+  "params": {
+    "cols": 5,
+    "top": 0.25,
+    "mix": {"quarter": 3, "half": 2, "circle": 1, "none": 1}
+  },
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "seafoam", "stone", "lagoon", "dune", "teal"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["umber", "deep_teal", "graphite", "harbor", "slate", "teal"] },
+  "notes": "A mid-century tile grid of quarter and half circles in teal, sand and stone beneath a calm open sky for the clock."
+}

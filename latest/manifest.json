@@ -1,11 +1,11 @@
 {
-  "date": "2026-11-23",
-  "title": "Slate Ridges",
-  "style": "mountains",
-  "spec": "specs/2026-11-23.json",
+  "date": "2026-11-24",
+  "title": "Teal Tiles",
+  "style": "bauhaus",
+  "spec": "specs/2026-11-24.json",
   "size": [
     1878,
     2670
   ],
-  "rendered_at": "2026-11-23T06:05:59+00:00"
+  "rendered_at": "2026-11-24T06:56:59+00:00"
 }
