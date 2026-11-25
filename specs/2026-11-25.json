@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-25",
+  "title": "Desert Dusk",
+  "seed": 71594,
+  "style": "dunes",
+  "families": ["blue", "tan", "khaki"],
+  "params": {
+    "tilt": 0.14,
+    "top": 0.38,
+    "bottom": 0.86,
+    "gradient_angle": 90
+  },
+  "light": { "background": ["ice", "linen"], "layers": ["parchment", "sand", "khaki", "sky", "dune"] },
+  "dark":  { "background": ["midnight", "navy"], "layers": ["graphite", "umber", "olive_khaki", "ocean", "midnight"] },
+  "notes": "Tilted sand dunes under a pale sky, with one cool blue ridge running through the warm layers."
+}
