@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-26",
+  "title": "Silver Phases",
+  "seed": 112604,
+  "style": "moons",
+  "families": ["blue", "grey"],
+  "params": { "count": 5, "cy": 0.62, "arc": 0.08, "r": 0.1, "halo": 0.45, "gradient_angle": 90 },
+  "light": { "background": ["fog", "cloud"], "layers": ["ice", "sky", "cornflower"] },
+  "dark":  { "background": ["ink", "midnight"], "layers": ["slate", "navy", "graphite"] },
+  "notes": "A quiet arc of moon phases over a soft blue halo, cool silver for a late-November night."
+}
