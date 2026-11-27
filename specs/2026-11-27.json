@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-27",
+  "title": "Seagrass Fan",
+  "seed": 52719,
+  "style": "petals",
+  "families": ["teal", "khaki"],
+  "params": {
+    "mode": "fan",
+    "count": 9,
+    "length": 0.88,
+    "width": 0.18,
+    "tip": "round",
+    "cx": 0.36,
+    "cy": 1.02,
+    "spread": 140,
+    "opacity": 0.88,
+    "gradient_angle": 160
+  },
+  "light": { "background": ["linen", "parchment"], "layers": ["seafoam", "khaki", "lagoon", "seafoam", "teal"] },
+  "dark":  { "background": ["ink", "graphite"], "layers": ["deep_teal", "olive_khaki", "harbor", "deep_teal", "teal"] },
+  "notes": "Seagrass blades fanning up from the lower-left, teal against warm khaki sand."
+}
