@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-28",
+  "title": "Woven Dusk",
+  "seed": 73519,
+  "style": "chevrons",
+  "families": ["tan", "grey", "blue"],
+  "params": {
+    "teeth": 2,
+    "amplitude": 0.12,
+    "top": 0.3,
+    "gap": 0.17,
+    "gradient_angle": 90
+  },
+  "light": { "background": ["linen", "parchment"], "layers": ["sand", "sky", "stone", "cornflower", "dune"] },
+  "dark":  { "background": ["ink", "midnight"], "layers": ["umber", "navy", "graphite", "slate", "navy"] },
+  "notes": "Calm flat textile zig-zags in sand, stone and soft sky, settling below the clock like a folded blanket at dusk."
+}
